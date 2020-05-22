@@ -2,7 +2,7 @@
 #include<iostream>
 #include<iomanip>
 #include<vector>
-
+#include<fstream>
 using namespace std;
 
 
@@ -29,6 +29,10 @@ public:
     
     void xuatSanPham(){
         cout << _maHang << setw(26) << _tenHang << setw(20) << _giaTien << setw(20) << _soLuong << endl;
+    }
+    
+    void ghiFile(ofstream &file){
+        file << _maHang << setw(26) << _tenHang << setw(20) << _giaTien << setw(20) << _soLuong << endl;
     }
     
     void themSoLuong(){
@@ -60,9 +64,9 @@ public:
     }
     
     friend istream& operator >> (istream& is , SanPham& sanPham){
-           sanPham.nhapSanPham();
-           return is;
-       }
+        sanPham.nhapSanPham();
+        return is;
+    }
     
     friend ostream& operator << (ostream& os,SanPham& sanPham){
         sanPham.xuatSanPham();
@@ -94,7 +98,7 @@ public:
     void xuatDuLieuHangHoa(){
         cout << "******THONG TIN SAN PHAM******" << endl;
         cout << "Ma hang" << setw(20) << "Ten hang" << setw(20) << "Gia tien" << setw(20) << "So luong" << endl;
-      
+        
         for(int i = 0 ; i< danhSachSanPham.size();i++){
             cout << danhSachSanPham[i];
         }
@@ -122,15 +126,16 @@ public:
                             if(maHang == gioHang[i].getMaHang()){
                                 gioHang[i].themSoLuong();
                                 break;
-                              
+                                
                             }
                             if(i == gioHang.size() -1 && maHang != gioHang[i].getMaHang()){
                                 gioHang.insert(gioHang.end(), sanPham);
                             }
-                                  
+                            
                         }
                     }
-                } else {
+                } else if(danhSachSanPham[i].getSoLuong() <= 0){
+                    danhSachSanPham.erase(danhSachSanPham.begin() + i);
                     cout << "SAN PHAM DA HET" << endl;;
                 }
                 
@@ -138,8 +143,8 @@ public:
             }
         }
         
-      
-       
+        
+        
     }
     
     void xuatGioHang(){
@@ -163,6 +168,20 @@ public:
         cout << "Thanh tien: " << thanhTien << endl;
     }
     
+    void inFile(){
+        ofstream file;
+        file.open("hangton.txt",ios::out);
+        if(file.is_open()){
+            file << "Ma hang" << setw(20) << "Ten hang" << setw(20) << "Gia tien" << setw(20) << "So luong" << endl;
+            for(int i = 0 ; i<danhSachSanPham.size();i++){
+                danhSachSanPham[i].ghiFile(file);
+            }
+            file.close();
+        } else {
+            cout << "Khong the mo file";
+        }
+    }
+    
     void inMenu(){
         int select;
         cout << "*******BAI 1**********" << endl;
@@ -170,7 +189,8 @@ public:
         cout << "2.Xuat du lieu hang hoa" << endl;
         cout << "3.Them vao gio hang" << endl;
         cout << "4.Xuat gio hang" << endl;
-        cout << "5.Thoat" << endl;
+        cout << "5.In file" << endl;
+        cout << "6.Thoat" << endl;
         do{
             cout << "Vui long nhap yeu cau: ";
             cin >> select;
@@ -188,13 +208,13 @@ public:
                 case 4:
                     xuatGioHang();
                     break;
+                case 5:
+                    inFile();
+                    break;
                 default:
                     break;
             }
-            
-            
-            
-        }while(select!=5);
+        }while(select!=6);
     }
     
     
@@ -204,6 +224,8 @@ int main(){
     MayTinhTien* mayTinhTien = new MayTinhTien();
     
     mayTinhTien->inMenu();
+    
+    
     delete mayTinhTien;
     return 0;
 }
