@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
 using namespace std;
 
 
@@ -32,6 +33,12 @@ public:
         cout << "Ho ten: " << hoTen << endl;
         cout << "He: " << he << endl;
         cout << "Diem lap trinh C: " << diemLapTrinhC << endl;
+    }
+    virtual void inThongTin(ofstream& file){
+        file << "Ma so: " << maSo << endl;
+        file << "Ho ten: " << hoTen << endl;
+        file << "He: " << he << endl;
+        file << "Diem lap trinh C: " << diemLapTrinhC << endl;
     }
     string getHe(){
         return this->he;
@@ -86,6 +93,12 @@ public:
         cout << "Diem trung binh: " << tinhDiemTrungBinh() << endl;
     }
     
+    void inThongTin(ofstream& file) override {
+        sinhVien::inThongTin(file);
+        file << "Diem dien tu can ban: " << diemDienTuCanBan << endl;
+        file << "Diem trung binh: " << tinhDiemTrungBinh() << endl;
+    }
+    
     friend istream& operator >> (istream& is , SinhVienCLC* sinhVien){
         sinhVien->nhapThongTin();
         return is;
@@ -121,6 +134,12 @@ public:
         cout << "Diem nhap mon ky thuat: " << diemNhapMonKyThuat << endl;
         cout << "Diem trung binh: " << tinhDiemTrungBinh() << endl;
     }
+    void inThongTin(ofstream& file) override {
+        sinhVien::inThongTin(file);
+        file << "Diem nhap mon ky thuat: " << diemNhapMonKyThuat << endl;
+        file << "Diem trung binh: " << tinhDiemTrungBinh() << endl;
+    }
+    
     friend istream& operator >> (istream& is , SinhVienCQ* sinhVien){
         sinhVien->nhapThongTin();
         return is;
@@ -193,6 +212,55 @@ public:
         }
         xuatDanhSach();
     }
+    void xoaSinhVienBatKy(){
+        int maSo;
+        cout << "Vui long nhap MSSV: ";
+        cin >> maSo;
+        for(int i = 0 ; i<danhSachSinhVien.size();i++){
+            if(maSo == danhSachSinhVien[i]->getMaSo()){
+                danhSachSinhVien.erase(danhSachSinhVien.begin() + i);
+                cout << "Xoa thanh cong" << endl;
+            }
+        }
+    }
+    void chenThemSinhVien(){
+        int viTri;
+        SinhVien sinhVien;
+        cout << "Vui long nhap vi tri muon chen:";
+        cin >> viTri;
+        cin >> sinhVien;
+        
+        
+        if(sinhVien.getHe() == "CQ"){
+            SinhVienCQ* sinhVienCQ = new SinhVienCQ(sinhVien.getMaSo(),sinhVien.getHoTen(),
+                                                    sinhVien.getHe(),sinhVien.getDiemLapTrinhC());
+            cin >> sinhVienCQ;
+            
+            danhSachSinhVien.insert(danhSachSinhVien.begin() + viTri, sinhVienCQ);
+        } else {
+            SinhVienCLC* sinhVienCLC =  new SinhVienCLC(sinhVien.getMaSo(),sinhVien.getHoTen(),
+                                                        sinhVien.getHe(),sinhVien.getDiemLapTrinhC());
+            cin >> sinhVienCLC;
+            danhSachSinhVien.insert(danhSachSinhVien.begin() + viTri, sinhVienCLC);
+            
+        }
+    }
+    
+    void inFile(){
+        ofstream file;
+        
+        file.open("danhsach.txt",ios::out);  //Bo ios::out neu su dung he dieu hanh window
+        if(file.is_open()){
+            for(int i = 0 ; i<danhSachSinhVien.size();i++){
+                danhSachSinhVien[i]->inThongTin(file);
+            }
+            
+            file.close();
+        } else {
+            cout << "Khong mo duoc file" << endl;
+        }
+        
+    }
     
     
     void inMenu(){
@@ -202,7 +270,11 @@ public:
         cout << "2.Xuat danh sach sinh vien" << endl;
         cout << "3.Tim sinh vien co DTB cao nhat" << endl;
         cout << "4.Sap xep sinh vien theo DTB tang dan" << endl;
-        cout << "5.Thoat" << endl;
+        cout << "5.Xoa thong tin 1 sinh vien" << endl;
+        cout << "6.Chen them 1 sinh vien" << endl;
+        cout << "7.Sap xep tong diem" << endl;
+        cout << "8.In ra file" << endl;
+        cout << "9.Thoat" << endl;
         do{
             cout << "Vui long chon yeu cau: ";
             cin >> select;
@@ -220,10 +292,21 @@ public:
                 case 4:
                     sapXepSinhVienTheoDTBTangDan();
                     break;
+                case 5:
+                    xoaSinhVienBatKy();
+                    break;
+                case 6:
+                    chenThemSinhVien();
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    inFile();
+                    break;
                 default:
                     break;
             }
-        }while(select != 5);
+        }while(select != 9);
         
         
         

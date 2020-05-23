@@ -1,0 +1,18 @@
+Ma so: 1
+Ho ten: VIET
+He: CLC
+Diem lap trinh C: 8
+Diem dien tu can ban: 8
+Diem trung binh: 8
+Ma so: 5
+Ho ten: VVB
+He: CQ
+Diem lap trinh C: 10
+Diem nhap mon ky thuat: 10
+Diem trung binh: 10
+Ma so: 7
+Ho ten: BB
+He: CLC
+Diem lap trinh C: 1
+Diem dien tu can ban: 4
+Diem trung binh: 2
