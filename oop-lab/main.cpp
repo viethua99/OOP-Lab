@@ -180,6 +180,19 @@ public:
         cout << *danhSachSinhVien[maxIndex];
         
     }
+    void sapXepSinhVienTheoDTBTangDan(){
+        //Su dung bubble sort
+        for(int i = 0 ; i < danhSachSinhVien.size() - 1;i++){
+            for(int j = 0 ; j < danhSachSinhVien.size() - i -1;j++){
+                if(danhSachSinhVien[j]->tinhDiemTrungBinh() > danhSachSinhVien[j+1]->tinhDiemTrungBinh()){
+                    SinhVien* temp = danhSachSinhVien[j];
+                    danhSachSinhVien[j] = danhSachSinhVien[j+1];
+                    danhSachSinhVien[j+1] = temp;
+                }
+            }
+        }
+        xuatDanhSach();
+    }
     
     
     void inMenu(){
@@ -188,7 +201,8 @@ public:
         cout << "1.Nhap danh sach sinh vien" << endl;
         cout << "2.Xuat danh sach sinh vien" << endl;
         cout << "3.Tim sinh vien co DTB cao nhat" << endl;
-        cout << "4.Thoat" << endl;
+        cout << "4.Sap xep sinh vien theo DTB tang dan" << endl;
+        cout << "5.Thoat" << endl;
         do{
             cout << "Vui long chon yeu cau: ";
             cin >> select;
@@ -203,11 +217,13 @@ public:
                 case 3:
                     timSinhVienCoDiemTrungBinhCaoNhat();
                     break;
-                    
+                case 4:
+                    sapXepSinhVienTheoDTBTangDan();
+                    break;
                 default:
                     break;
             }
-        }while(select != 4);
+        }while(select != 5);
         
         
         
