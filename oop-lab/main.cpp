@@ -170,7 +170,7 @@ public:
     
     void inFile(){
         ofstream file;
-        file.open("hangton.txt",ios::out);
+        file.open("hangton.txt",ios::out); //Bo ios::out neu su dung HDH window
         if(file.is_open()){
             file << "Ma hang" << setw(20) << "Ten hang" << setw(20) << "Gia tien" << setw(20) << "So luong" << endl;
             for(int i = 0 ; i<danhSachSanPham.size();i++){
