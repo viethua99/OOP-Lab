@@ -168,7 +168,7 @@ public:
     }
     
     void timSinhVienCoDiemTrungBinhCaoNhat(){
-        cout << "***SINH VIEN CO DTB CAO NHAT***"  << endl;
+        cout << "***SINH VIEN CO DTB CAO NHAT***"  << endl ;
         float maxIndex = 0;
         float max = danhSachSinhVien[maxIndex]->tinhDiemTrungBinh();
         for(int i = 0 ; i< danhSachSinhVien.size();i++){
