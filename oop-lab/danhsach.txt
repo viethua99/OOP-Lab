@@ -1,0 +1,10 @@
+Ho ten: Vu
+Loai: LTV
+So phan mem: 2
+Luong hang thang:10000000
+Ho ten: Viet
+Loai: VPhong
+He so chuc vu: 9
+Luong hang thang:9000000
+Ho ten: VV
+Loai: PV
