@@ -35,11 +35,11 @@ public:
         file << _maHang << setw(26) << _tenHang << setw(20) << _giaTien << setw(20) << _soLuong << endl;
     }
     
-    void themSoLuong(){
-        _soLuong++;
+    void themSoLuong(int soLuong){
+        _soLuong+= soLuong;
     }
-    void giamSoLuong(){
-        _soLuong--;
+    void giamSoLuong(int soLuong){
+        _soLuong-=soLuong;
     }
     int getSoLuong(){
         return this->_soLuong;
@@ -116,15 +116,15 @@ public:
                     sanPham.setMaHang(danhSachSanPham[i].getMaHang());
                     sanPham.setTenHang(danhSachSanPham[i].getTenHang());
                     sanPham.setGiaTien(danhSachSanPham[i].getGiaTien());
-                    danhSachSanPham[i].giamSoLuong();
+                    danhSachSanPham[i].giamSoLuong(1);
                     
                     if(gioHang.empty()){
-                        sanPham.themSoLuong();
+                        sanPham.themSoLuong(1);
                         gioHang.insert(gioHang.end(), sanPham);
                     } else {
                         for(int i = 0 ; i< gioHang.size();i++){
                             if(maHang == gioHang[i].getMaHang()){
-                                gioHang[i].themSoLuong();
+                                gioHang[i].themSoLuong(1);
                                 break;
                                 
                             }
@@ -168,9 +168,27 @@ public:
         cout << "Thanh tien: " << thanhTien << endl;
     }
     
+    void themSoLuongHang(){
+        long maHang;
+        int soLuong;
+        cout << "Xin nhap ma hang san pham: ";
+        cin >> maHang;
+        cout << "Xin nhap so luong tang: ";
+        cin >> soLuong;
+        for(int i = 0 ; i< danhSachSanPham.size();i++){
+            if(maHang == danhSachSanPham[i].getMaHang()){
+                
+                danhSachSanPham[i].themSoLuong(soLuong);
+                break;
+            }
+            
+        }
+        
+    }
+    
     void inFile(){
         ofstream file;
-        file.open("hangton.txt",ios::out); //Bo ios::out neu su dung HDH windowr
+        file.open("hangton.txt",ios::out); //Bo ios::out neu su dung HDH window
         if(file.is_open()){
             file << "Ma hang" << setw(20) << "Ten hang" << setw(20) << "Gia tien" << setw(20) << "So luong" << endl;
             for(int i = 0 ; i<danhSachSanPham.size();i++){
@@ -211,10 +229,13 @@ public:
                 case 5:
                     inFile();
                     break;
+                case 6:
+                    themSoLuongHang();
+                    break;
                 default:
                     break;
             }
-        }while(select!=6);
+        }while(select!=7);
     }
     
     
