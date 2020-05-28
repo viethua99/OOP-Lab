@@ -1,0 +1,8 @@
+Ho ten: asf
+Loai: NgLon
+So thang dang ky: 5
+Tong tien tra:500000
+Ho ten: fsdr
+Loai: TreE
+So tuoi: 8
+Tong tien tra:160000
