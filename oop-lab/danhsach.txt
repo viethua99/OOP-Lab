@@ -1,0 +1,14 @@
+Ho ten: VIET
+He:CQ
+So chi ly thuyet: 5
+So chi thuc hanh: 4
+Tong hoc phi:4400000
+Ho ten: THANH
+He:CLC
+Hoc ky dang hoc: 3
+Tong hoc phi:24200000
+Ho ten: VU
+He:CQ
+So chi ly thuyet: 1
+So chi thuc hanh: 4
+Tong hoc phi:2800000
